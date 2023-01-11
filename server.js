@@ -20,6 +20,7 @@ app.use(cors({
     credentials: true,
     origin:[process.env.THE_BACK_LINK, process.env.THE_FRONT_LINK]
     }))
+    
 app.use(cookieParser(process.env.THE_COOKIE_SECRET))
 
 

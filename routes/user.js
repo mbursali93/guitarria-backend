@@ -5,6 +5,19 @@ const { verifyToken, verifyUser, verifyAdmin } = require("./verifyToken")
 
 
 
+//GET USER
+router.get("/", verifyUser, async (req,res) => {
+    try {
+        const user = await User.findById(req.user.id);
+    if(!user) res.status(500).json("no user found with that id")
+    const {password, ...others} = user._doc;
+    res.status(201).json(others)
+    } catch(e) {
+        res.status(500).json(e.message)
+    }
+
+})
+
 
 //UPDATE
 
@@ -40,22 +53,6 @@ router.patch("/cart", verifyUser, async(req,res) => {
 
 })
 
-
-
-
-//GET USER
-
-router.get("/", verifyUser, async (req,res) => {
-    try {
-        const user = await User.findById(req.user.id);
-    if(!user) res.status(500).json("no user found with that id")
-    const {password, ...others} = user._doc;
-    res.status(201).json(others)
-    } catch(e) {
-        res.status(500).json(e.message)
-    }
-
-})
 
 
 

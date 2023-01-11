@@ -20,19 +20,10 @@ const verifyUser = (req,res,next) => {
     
 }
 
-const verifyAdmin = async (req,res,next) => {
-    try {
-        const user = await User.findOne({
-            _id:req.user.id
-        })
+//Verify Admin
 
-        if(!user.isAdmin) {
-            res.status(500).json("You are not the admin")
-            next()
-        }
-    } catch(e){
-        res.status(500).json(e.message)
-    }
+const verifyAdmin = () => {
+
 }
 
 module.exports = {verifyUser, verifyAdmin}

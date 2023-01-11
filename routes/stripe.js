@@ -10,9 +10,12 @@ const User = require("../models/User")
 //STRIPE PAYMENT
 
 router.post('/checkout', async (req, res) => {
+
+  
     const cart = req.body.cart;
     let totalPrice;
 
+    //Verifies price of the products
     for(let i=0; i<cart.length; i++) {
 
       const product = await Product.findById(cart[i].product._id)
@@ -169,6 +172,7 @@ router.post('/checkout', async (req, res) => {
   });
 
 
+  //upgrades number of sold items 
   const sold = async (id, quantity, oldSold) =>{
     await Product.findOneAndUpdate({_id: id}, {
         sold: quantity + oldSold
@@ -210,7 +214,7 @@ router.post('/checkout', async (req, res) => {
     }, {new:true})
       
     } catch(e) {
-      console.log(e.message)
+      
     }
   }
 
